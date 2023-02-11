@@ -1,0 +1,41 @@
+<html>
+<link rel="stylesheet" href="https://theretrosimulatorstimulator.neocities.org/center.css">
+<title>UrlShorter Demo</title>
+<h1>UrlShorter Demo</h1>
+<div id="body" class="center">
+<center>
+<form action="javascript:void(0);" onsubmit="submitted()">
+  <label for="Short">URL:</label>
+  <p> </p>
+  <input id="Short" type="text" name="shorturl" required size="40">
+  <p> </p>
+  <input type="submit" value="Save">
+</form>
+</center>
+<center><a id="result" href=""></a></center>
+<center><p id="erroroutput" style="color: red"></p></center>
+<center><img src="" id="errors"></center>
+<script>
+  function submitted() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://urlshorter.genarunchisacoa.repl.co/add/json/' + 
+document.getElementById('Short').value);
+xhr.onload = function() {
+  if (xhr.status === 200) {
+    document.getElementById("errors").src = ""
+    document.getElementById("erroroutput").innerHTML = ""
+    var data = JSON.parse(xhr.responseText);
+    var shortcut = data.shortcut;
+    var shortcutDiv = document.getElementById('result');
+    shortcutDiv.innerHTML = "https://urlshorter.genarunchisacoa.repl.co/" + shortcut;
+    shortcutDiv.href = "https://urlshorter.genarunchisacoa.repl.co/" + shortcut;
+  } else {
+    document.getElementById("errors").src = "https://http.cat/" + xhr.status
+    document.getElementById("erroroutput").innerHTML = xhr.responseText
+  }
+};
+xhr.send();
+  }
+</script>
+</div>
+</html>
